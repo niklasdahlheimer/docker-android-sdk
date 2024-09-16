@@ -1,5 +1,6 @@
 FROM openjdk:17-slim
 
+# Find latest version under https://developer.android.com/studio#command-tools
 ENV ANDROID_SDK_TOOLS 11076708
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
 ENV ANDROID_BUILD_TOOLS_VERSION 34.0.0
@@ -12,7 +13,7 @@ USER root
 
 # Install required packages
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends unzip curl
+    apt-get install -y --no-install-recommends unzip curl openssh-client
 RUN mkdir "$ANDROID_HOME" .android && \
     cd "$ANDROID_HOME" && \
     curl -o sdk.zip $ANDROID_SDK_URL && \
