@@ -13,7 +13,7 @@ USER root
 
 # Install required packages
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends unzip curl openssh-client
+    apt-get install -y --no-install-recommends unzip curl
 RUN mkdir "$ANDROID_HOME" .android && \
     cd "$ANDROID_HOME" && \
     curl -o sdk.zip $ANDROID_SDK_URL && \
@@ -28,12 +28,8 @@ RUN yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME && \
     "extras;android;m2repository" \
     "extras;google;m2repository"
 
-# Install Fastlane
-# RUN apt-get install --no-install-recommends -y --allow-unauthenticated build-essential git ruby-full && \
-#    gem install rake && \
-#    gem install fastlane && \
-#    gem install bundler && \
-#    gem install screengrab \
+# Install tools
+RUN apt-get install --no-install-recommends -y --allow-unauthenticated openssh-client git
 
 # Clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
